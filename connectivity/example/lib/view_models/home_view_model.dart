@@ -1,0 +1,172 @@
+import 'package:clover/clover.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_example/models.dart';
+import 'package:connectivity_example/util.dart';
+import 'package:logging/logging.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+class HomeViewModel extends ViewModel {
+  final ConnectivityManager _connectivityManager;
+  String? _ssid;
+  final Map<String, NetworkModel> _wifiModels;
+  final Map<String, NetworkModel> _ethernetModels;
+
+  late final ConnectivityManager$NetworkCallback _wifiCallback;
+  late final ConnectivityManager$NetworkCallback _ethernetCallback;
+
+  Logger get logger => Logger('HomeViewModel');
+
+  String? get ssid => _ssid;
+  Map<String, NetworkModel> get wifiModels => _wifiModels;
+  Map<String, NetworkModel> get ethernetModels => _ethernetModels;
+
+  HomeViewModel()
+    : _connectivityManager = ConnectivityManager(),
+      _ssid = null,
+      _wifiModels = {},
+      _ethernetModels = {} {
+    _initialize();
+  }
+
+  @override
+  void dispose() {
+    _connectivityManager.unregisterNetworkCallback(_wifiCallback);
+    _connectivityManager.unregisterNetworkCallback(_ethernetCallback);
+    super.dispose();
+  }
+
+  void _initialize() async {
+    final isGranted = await Permission.locationWhenInUse.isGranted;
+    if (!isGranted) {
+      final status = await Permission.locationWhenInUse.request();
+      logger.info('location when use status: $status');
+    }
+    final wr = NetworkRequest(
+      transportTypes: [NetworkCapabilities$Transport.wifi],
+    );
+    final er = NetworkRequest(
+      transportTypes: [NetworkCapabilities$Transport.ethernet],
+    );
+    _wifiCallback = ConnectivityManager$NetworkCallback(
+      includeLocationInfo: true,
+      onAvailable: (network) {
+        logger.info('wifi onAvailable');
+      },
+      onCapabilitiesChanged: (network, networkCapabilities) {
+        logger.info('wifi onCapabilitiesChanged');
+        final info = networkCapabilities.transportInfo;
+        if (info is WifiInfo) {
+          _ssid = info.ssid;
+          notifyListeners();
+        } else {
+          logger.warning('info is $info');
+        }
+      },
+      onLinkPropertiesChanged: (network, linkProperties) {
+        logger.info('wifi onLinkPropertiesChanged');
+        final wifiModel = linkProperties.getNetworkModel();
+        if (wifiModel == null) {
+          logger.warning('wifi model is null');
+          return;
+        }
+        _wifiModels[wifiModel.iface] = wifiModel;
+        notifyListeners();
+      },
+      onLosing: (network, maxMsToLive) {
+        logger.info('wifi onLosing');
+      },
+      onLost: (network) {
+        logger.info('wifi onLost');
+        _ssid = null;
+        _wifiModels.clear();
+        notifyListeners();
+      },
+    );
+    _ethernetCallback = ConnectivityManager$NetworkCallback(
+      onAvailable: (network) {
+        logger.info('ethernet onAvailable');
+      },
+      onCapabilitiesChanged: (network, networkCapabilities) {
+        logger.info('ethernet onCapabilitiesChanged');
+      },
+      onLinkPropertiesChanged: (network, linkProperties) {
+        logger.info('ethernet onLinkPropertiesChanged');
+        final model = linkProperties.getNetworkModel();
+        if (model == null) {
+          logger.warning('ethernet model is null');
+          return;
+        }
+        _ethernetModels[model.iface] = model;
+        notifyListeners();
+      },
+      onLosing: (network, maxMsToLive) {
+        logger.info('ethernet onLosing');
+      },
+      onLost: (network) async {
+        logger.info('ethernet onLost');
+        _ethernetModels.clear();
+        notifyListeners();
+      },
+    );
+    _connectivityManager.registerNetworkCallback(wr, _wifiCallback);
+    _connectivityManager.registerNetworkCallback(er, _ethernetCallback);
+  }
+}
+
+extension on LinkProperties {
+  NetworkModel? getNetworkModel() {
+    final iface = interfaceName;
+    if (iface == null) return null;
+    final inetAddresses = getAddressModels();
+    final inetAddress = inetAddresses.firstOrNull;
+    final gateway = getGatewayModel();
+    final dnsServers = getDnsServerModels();
+    return NetworkModel(
+      iface: iface,
+      ipAddress: inetAddress?.$1,
+      subnetMask: inetAddress?.$2,
+      gateway: gateway,
+      dnsServers: dnsServers,
+    );
+  }
+
+  List<(String, String)> getAddressModels() {
+    return linkAddresses
+        .map((e) {
+          final inetAddress = e.address;
+          if (inetAddress is! Inet4Address) return null;
+          final ipAddress = inetAddress.hostAddress;
+          if (ipAddress == null) return null;
+          final prefixLength = e.prefixLength;
+          final subnetMask = NetworkUtil.getPrefixMask(prefixLength);
+          return (ipAddress, subnetMask);
+        })
+        .whereType<(String, String)>()
+        .toList();
+  }
+
+  String? getGatewayModel() {
+    return routes
+        .map((e) {
+          final isDefault = e.isDefaultRoute;
+          if (isDefault) {
+            final inetGateway = e.gateway;
+            if (inetGateway is! Inet4Address) return null;
+            final gateway = inetGateway.hostAddress;
+            return gateway;
+          } else {
+            return null;
+          }
+        })
+        .whereType<String>()
+        .toList()
+        .firstOrNull;
+  }
+
+  List<String> getDnsServerModels() {
+    return dnsServers
+        .map((e) => e is Inet4Address ? e.hostAddress : null)
+        .whereType<String>()
+        .toList();
+  }
+}
