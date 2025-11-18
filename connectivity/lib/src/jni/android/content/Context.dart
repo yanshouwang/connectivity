@@ -44,6 +44,8 @@ import '../os/Handler.dart' as handler$_;
 
 import '../os/Looper.dart' as looper$_;
 
+import 'IntentFilter.dart' as intentfilter$_;
+
 /// from: `android.content.Context$BindServiceFlags`
 class Context$BindServiceFlags extends jni$_.JObject {
   @jni$_.internal
@@ -5343,7 +5345,7 @@ class Context extends jni$_.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JObject? registerReceiver(
     jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+    intentfilter$_.IntentFilter? intentFilter,
   ) {
     final _$broadcastReceiver =
         broadcastReceiver?.reference ?? jni$_.jNullReference;
@@ -5391,7 +5393,7 @@ class Context extends jni$_.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JObject? registerReceiver$1(
     jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+    intentfilter$_.IntentFilter? intentFilter,
     int i,
   ) {
     final _$broadcastReceiver =
@@ -5443,7 +5445,7 @@ class Context extends jni$_.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JObject? registerReceiver$2(
     jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+    intentfilter$_.IntentFilter? intentFilter,
     jni$_.JString? string,
     handler$_.Handler? handler,
   ) {
@@ -5501,7 +5503,7 @@ class Context extends jni$_.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JObject? registerReceiver$3(
     jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+    intentfilter$_.IntentFilter? intentFilter,
     jni$_.JString? string,
     handler$_.Handler? handler,
     int i,

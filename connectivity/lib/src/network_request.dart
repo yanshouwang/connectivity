@@ -68,7 +68,7 @@ final class NetworkRequestImpl implements NetworkRequest {
   @override
   List<NetworkCapabilities$NetCapability> get capabilities => api
       .getCapabilities()
-      .map((e) => e.networkCapabilitiesNetCapabilityImpl)
+      .map((e) => e.networkCapabilities$NetCapabilityImpl)
       .toList();
   @override
   NetworkSpecifier? get networkSpecifier => api.getNetworkSpecifier()?.impl;
@@ -78,7 +78,7 @@ final class NetworkRequestImpl implements NetworkRequest {
   @override
   List<NetworkCapabilities$Transport> get transportTypes => api
       .getTransportTypes()
-      .map((e) => e.networkCapabilitiesTransportImpl)
+      .map((e) => e.networkCapabilities$TransportImpl)
       .toList();
 
   @override

@@ -38,6 +38,8 @@ import 'package:jni/jni.dart' as jni$_;
 
 import '../../../android/content/Context.dart' as context$_;
 
+import '../../../android/content/IntentFilter.dart' as intentfilter$_;
+
 import '../../../android/os/Handler.dart' as handler$_;
 
 import '../../../java/util/concurrent/Executor.dart' as executor$_;
@@ -1020,7 +1022,7 @@ class ContextCompat extends jni$_.JObject {
   static jni$_.JObject? registerReceiver(
     context$_.Context context,
     jni$_.JObject? broadcastReceiver,
-    jni$_.JObject intentFilter,
+    intentfilter$_.IntentFilter intentFilter,
     int i,
   ) {
     final _$context = context.reference;
@@ -1079,7 +1081,7 @@ class ContextCompat extends jni$_.JObject {
   static jni$_.JObject? registerReceiver$1(
     context$_.Context context,
     jni$_.JObject? broadcastReceiver,
-    jni$_.JObject intentFilter,
+    intentfilter$_.IntentFilter intentFilter,
     jni$_.JString? string,
     handler$_.Handler? handler,
     int i,

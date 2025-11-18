@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import '../jni.dart' as jni;
 import '../mac_address.dart';
 import '../network_info.dart';
@@ -28,6 +30,22 @@ abstract interface class WifiInfo implements TransportInfo {
   static NetworkInfo$DetailedState getDetailedStateOf(
     SupplicantState suppState,
   ) => WifiInfoImpl.getDetailedStateOf(suppState);
+
+  factory WifiInfo({
+    String? bssid,
+    WifiInfo$SecurityType? securityType,
+    int? neworkId,
+    int? rssi,
+    Uint8List? ssid,
+    int? subId,
+  }) => WifiInfoImpl(
+    bssid: bssid,
+    securityType: securityType,
+    neworkId: neworkId,
+    rssi: rssi,
+    ssid: ssid,
+    subId: subId,
+  );
 
   List<MloLink> get affiliatedMloLinks;
   MacAddress? get apMldMacAddress;
@@ -69,6 +87,25 @@ final class WifiInfoImpl extends TransportInfoImpl implements WifiInfo {
 
   WifiInfoImpl.jni(this.api);
 
+  factory WifiInfoImpl({
+    String? bssid,
+    WifiInfo$SecurityType? securityType,
+    int? neworkId,
+    int? rssi,
+    Uint8List? ssid,
+    int? subId,
+  }) {
+    final builder = jni.WifiInfo$Builder();
+    if (bssid != null) builder.setBssid(bssid.api);
+    if (securityType != null) builder.setCurrentSecurityType(securityType.api);
+    if (neworkId != null) builder.setNetworkId(neworkId);
+    if (rssi != null) builder.setRssi(rssi);
+    if (ssid != null) builder.setSsid(ssid.api);
+    if (subId != null) builder.setSubscriptionId(subId);
+    final api = builder.build();
+    return WifiInfoImpl.jni(api);
+  }
+
   @override
   List<MloLink> get affiliatedMloLinks =>
       api.getAffiliatedMloLinks().nonNulls.map((e) => e.impl).toList();
@@ -91,7 +128,7 @@ final class WifiInfoImpl extends TransportInfoImpl implements WifiInfo {
 
   @override
   WifiInfo$SecurityType get currentSecurityType =>
-      api.getCurrentSecurityType().wifiInfoSecurityTypeImpl;
+      api.getCurrentSecurityType().wifiInfo$SecurityTypeImpl;
 
   @override
   int get frequency => api.getFrequency();
@@ -160,7 +197,7 @@ final class WifiInfoImpl extends TransportInfoImpl implements WifiInfo {
 }
 
 extension WifiInfo$intX on int {
-  WifiInfo$SecurityType get wifiInfoSecurityTypeImpl {
+  WifiInfo$SecurityType get wifiInfo$SecurityTypeImpl {
     switch (this) {
       case jni.WifiInfo.SECURITY_TYPE_UNKNOWN:
         return WifiInfo$SecurityType.unknown;
@@ -194,6 +231,43 @@ extension WifiInfo$intX on int {
         return WifiInfo$SecurityType.dpp;
       default:
         throw UnimplementedError('Unimplemented value: $this');
+    }
+  }
+}
+
+extension WifiInfo$SecurityTypeX on WifiInfo$SecurityType {
+  int get api {
+    switch (this) {
+      case WifiInfo$SecurityType.unknown:
+        return jni.WifiInfo.SECURITY_TYPE_UNKNOWN;
+      case WifiInfo$SecurityType.open:
+        return jni.WifiInfo.SECURITY_TYPE_OPEN;
+      case WifiInfo$SecurityType.wep:
+        return jni.WifiInfo.SECURITY_TYPE_WEP;
+      case WifiInfo$SecurityType.psk:
+        return jni.WifiInfo.SECURITY_TYPE_PSK;
+      case WifiInfo$SecurityType.eap:
+        return jni.WifiInfo.SECURITY_TYPE_EAP;
+      case WifiInfo$SecurityType.sae:
+        return jni.WifiInfo.SECURITY_TYPE_SAE;
+      case WifiInfo$SecurityType.eapWpa3Enterprise192Bit:
+        return jni.WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT;
+      case WifiInfo$SecurityType.owe:
+        return jni.WifiInfo.SECURITY_TYPE_OWE;
+      case WifiInfo$SecurityType.wapiPsk:
+        return jni.WifiInfo.SECURITY_TYPE_WAPI_PSK;
+      case WifiInfo$SecurityType.wapiCert:
+        return jni.WifiInfo.SECURITY_TYPE_WAPI_CERT;
+      case WifiInfo$SecurityType.eapWpa3Enterprise:
+        return jni.WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE;
+      case WifiInfo$SecurityType.osen:
+        return jni.WifiInfo.SECURITY_TYPE_OSEN;
+      case WifiInfo$SecurityType.passpointR1R2:
+        return jni.WifiInfo.SECURITY_TYPE_PASSPOINT_R1_R2;
+      case WifiInfo$SecurityType.passpointR3:
+        return jni.WifiInfo.SECURITY_TYPE_PASSPOINT_R3;
+      case WifiInfo$SecurityType.dpp:
+        return jni.WifiInfo.SECURITY_TYPE_DPP;
     }
   }
 }
