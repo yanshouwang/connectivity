@@ -22,6 +22,7 @@ export 'jni/java/util/_package.dart';
 export 'jni/java/util/concurrent/_package.dart';
 export 'jni/javax/net/_package.dart';
 export 'jni/dev/zeekr/connectivity/_package.dart';
+export 'jni/dev/zeekr/connectivity/ethernet/_package.dart';
 
 Context get context => Jni.androidApplicationContext.as(Context.type);
 

@@ -42,6 +42,8 @@ import '../../java/util/concurrent/Executor.dart' as executor$_;
 
 import '../content/Context.dart' as context$_;
 
+import '../content/Intent.dart' as intent$_;
+
 import 'PendingIntent.dart' as pendingintent$_;
 
 /// from: `android.app.Activity$ScreenCaptureCallback`
@@ -506,7 +508,7 @@ class Activity extends jni$_.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   pendingintent$_.PendingIntent? createPendingResult(
     int i,
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i1,
   ) {
     final _$intent = intent.reference;
@@ -1555,11 +1557,11 @@ class Activity extends jni$_.JObject {
 
   /// from: `public android.content.Intent getIntent()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? getIntent() {
+  intent$_.Intent? getIntent() {
     return _getIntent(
       reference.pointer,
       _id_getIntent as jni$_.JMethodIDPtr,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_getLastNonConfigurationInstance = _class.instanceMethodId(
@@ -1913,11 +1915,11 @@ class Activity extends jni$_.JObject {
 
   /// from: `public android.content.Intent getParentActivityIntent()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? getParentActivityIntent() {
+  intent$_.Intent? getParentActivityIntent() {
     return _getParentActivityIntent(
       reference.pointer,
       _id_getParentActivityIntent as jni$_.JMethodIDPtr,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_getPreferences = _class.instanceMethodId(
@@ -2855,7 +2857,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public boolean navigateUpTo(android.content.Intent intent)`
-  bool navigateUpTo(jni$_.JObject? intent) {
+  bool navigateUpTo(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     return _navigateUpTo(
       reference.pointer,
@@ -2891,7 +2893,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public boolean navigateUpToFromChild(android.app.Activity activity, android.content.Intent intent)`
-  bool navigateUpToFromChild(Activity? activity, jni$_.JObject? intent) {
+  bool navigateUpToFromChild(Activity? activity, intent$_.Intent? intent) {
     final _$activity = activity?.reference ?? jni$_.jNullReference;
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     return _navigateUpToFromChild(
@@ -2993,7 +2995,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void onActivityReenter(int i, android.content.Intent intent)`
-  void onActivityReenter(int i, jni$_.JObject? intent) {
+  void onActivityReenter(int i, intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _onActivityReenter(
       reference.pointer,
@@ -3040,7 +3042,7 @@ class Activity extends jni$_.JObject {
   void onActivityResult(
     int i,
     int i1,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     jni$_.JObject componentCaller,
   ) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
@@ -4295,7 +4297,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void onNewIntent(android.content.Intent intent, android.app.ComponentCaller componentCaller)`
-  void onNewIntent(jni$_.JObject intent, jni$_.JObject componentCaller) {
+  void onNewIntent(intent$_.Intent intent, jni$_.JObject componentCaller) {
     final _$intent = intent.reference;
     final _$componentCaller = componentCaller.reference;
     _onNewIntent(
@@ -6901,7 +6903,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void setIntent(android.content.Intent intent)`
-  void setIntent(jni$_.JObject? intent) {
+  void setIntent(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _setIntent(
       reference.pointer,
@@ -6937,7 +6939,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void setIntent(android.content.Intent intent, android.app.ComponentCaller componentCaller)`
-  void setIntent$1(jni$_.JObject? intent, jni$_.JObject? componentCaller) {
+  void setIntent$1(intent$_.Intent? intent, jni$_.JObject? componentCaller) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     final _$componentCaller =
         componentCaller?.reference ?? jni$_.jNullReference;
@@ -7298,7 +7300,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public final void setResult(int i, android.content.Intent intent)`
-  void setResult$1(int i, jni$_.JObject? intent) {
+  void setResult$1(int i, intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _setResult$1(
       reference.pointer,
@@ -7836,7 +7838,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public boolean shouldUpRecreateTask(android.content.Intent intent)`
-  bool shouldUpRecreateTask(jni$_.JObject? intent) {
+  bool shouldUpRecreateTask(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     return _shouldUpRecreateTask(
       reference.pointer,
@@ -8065,7 +8067,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void startActivities(android.content.Intent[] intents)`
-  void startActivities(jni$_.JArray<jni$_.JObject?>? intents) {
+  void startActivities(jni$_.JArray<intent$_.Intent?>? intents) {
     final _$intents = intents?.reference ?? jni$_.jNullReference;
     _startActivities(
       reference.pointer,
@@ -8102,7 +8104,7 @@ class Activity extends jni$_.JObject {
 
   /// from: `public void startActivities(android.content.Intent[] intents, android.os.Bundle bundle)`
   void startActivities$1(
-    jni$_.JArray<jni$_.JObject?>? intents,
+    jni$_.JArray<intent$_.Intent?>? intents,
     jni$_.JObject? bundle,
   ) {
     final _$intents = intents?.reference ?? jni$_.jNullReference;
@@ -8139,7 +8141,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void startActivity(android.content.Intent intent)`
-  void startActivity(jni$_.JObject? intent) {
+  void startActivity(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _startActivity(
       reference.pointer,
@@ -8175,7 +8177,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void startActivity(android.content.Intent intent, android.os.Bundle bundle)`
-  void startActivity$1(jni$_.JObject? intent, jni$_.JObject? bundle) {
+  void startActivity$1(intent$_.Intent? intent, jni$_.JObject? bundle) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     final _$bundle = bundle?.reference ?? jni$_.jNullReference;
     _startActivity$1(
@@ -8211,7 +8213,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void startActivityForResult(android.content.Intent intent, int i)`
-  void startActivityForResult(jni$_.JObject? intent, int i) {
+  void startActivityForResult(intent$_.Intent? intent, int i) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _startActivityForResult(
       reference.pointer,
@@ -8254,7 +8256,7 @@ class Activity extends jni$_.JObject {
 
   /// from: `public void startActivityForResult(android.content.Intent intent, int i, android.os.Bundle bundle)`
   void startActivityForResult$1(
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     jni$_.JObject? bundle,
   ) {
@@ -8301,7 +8303,11 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public void startActivityFromChild(android.app.Activity activity, android.content.Intent intent, int i)`
-  void startActivityFromChild(Activity activity, jni$_.JObject? intent, int i) {
+  void startActivityFromChild(
+    Activity activity,
+    intent$_.Intent? intent,
+    int i,
+  ) {
     final _$activity = activity.reference;
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _startActivityFromChild(
@@ -8349,7 +8355,7 @@ class Activity extends jni$_.JObject {
   /// from: `public void startActivityFromChild(android.app.Activity activity, android.content.Intent intent, int i, android.os.Bundle bundle)`
   void startActivityFromChild$1(
     Activity activity,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     jni$_.JObject? bundle,
   ) {
@@ -8400,7 +8406,7 @@ class Activity extends jni$_.JObject {
   /// from: `public void startActivityFromFragment(android.app.Fragment fragment, android.content.Intent intent, int i)`
   void startActivityFromFragment(
     jni$_.JObject fragment,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
   ) {
     final _$fragment = fragment.reference;
@@ -8450,7 +8456,7 @@ class Activity extends jni$_.JObject {
   /// from: `public void startActivityFromFragment(android.app.Fragment fragment, android.content.Intent intent, int i, android.os.Bundle bundle)`
   void startActivityFromFragment$1(
     jni$_.JObject fragment,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     jni$_.JObject? bundle,
   ) {
@@ -8492,7 +8498,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public boolean startActivityIfNeeded(android.content.Intent intent, int i)`
-  bool startActivityIfNeeded(jni$_.JObject intent, int i) {
+  bool startActivityIfNeeded(intent$_.Intent intent, int i) {
     final _$intent = intent.reference;
     return _startActivityIfNeeded(
       reference.pointer,
@@ -8535,7 +8541,7 @@ class Activity extends jni$_.JObject {
 
   /// from: `public boolean startActivityIfNeeded(android.content.Intent intent, int i, android.os.Bundle bundle)`
   bool startActivityIfNeeded$1(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i,
     jni$_.JObject? bundle,
   ) {
@@ -8588,7 +8594,7 @@ class Activity extends jni$_.JObject {
   /// from: `public void startIntentSender(android.content.IntentSender intentSender, android.content.Intent intent, int i, int i1, int i2)`
   void startIntentSender(
     jni$_.JObject? intentSender,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     int i1,
     int i2,
@@ -8646,7 +8652,7 @@ class Activity extends jni$_.JObject {
   /// from: `public void startIntentSender(android.content.IntentSender intentSender, android.content.Intent intent, int i, int i1, int i2, android.os.Bundle bundle)`
   void startIntentSender$1(
     jni$_.JObject? intentSender,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     int i1,
     int i2,
@@ -8708,7 +8714,7 @@ class Activity extends jni$_.JObject {
   void startIntentSenderForResult(
     jni$_.JObject? intentSender,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i1,
     int i2,
     int i3,
@@ -8770,7 +8776,7 @@ class Activity extends jni$_.JObject {
   void startIntentSenderForResult$1(
     jni$_.JObject? intentSender,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i1,
     int i2,
     int i3,
@@ -8836,7 +8842,7 @@ class Activity extends jni$_.JObject {
     Activity? activity,
     jni$_.JObject? intentSender,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i1,
     int i2,
     int i3,
@@ -8903,7 +8909,7 @@ class Activity extends jni$_.JObject {
     Activity? activity,
     jni$_.JObject? intentSender,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i1,
     int i2,
     int i3,
@@ -9046,7 +9052,7 @@ class Activity extends jni$_.JObject {
           >();
 
   /// from: `public boolean startNextMatchingActivity(android.content.Intent intent)`
-  bool startNextMatchingActivity(jni$_.JObject intent) {
+  bool startNextMatchingActivity(intent$_.Intent intent) {
     final _$intent = intent.reference;
     return _startNextMatchingActivity(
       reference.pointer,
@@ -9083,7 +9089,7 @@ class Activity extends jni$_.JObject {
 
   /// from: `public boolean startNextMatchingActivity(android.content.Intent intent, android.os.Bundle bundle)`
   bool startNextMatchingActivity$1(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JObject? bundle,
   ) {
     final _$intent = intent.reference;

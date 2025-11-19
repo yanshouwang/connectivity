@@ -6,6 +6,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
@@ -45,9 +46,15 @@ android {
 
     defaultConfig {
         minSdk = 24
+        // Keeping the classes from being removed by proguard.
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     dependencies {
+        implementation 'com.github.ChickenHook:RestrictionBypass:2.2'
+        // https://github.com/raphw/byte-buddy/issues/1763
+        implementation 'net.bytebuddy:byte-buddy-android:1.15.11'
+
         testImplementation("org.jetbrains.kotlin:kotlin-test")
         testImplementation("org.mockito:mockito-core:5.0.0")
     }
@@ -57,9 +64,9 @@ android {
             useJUnitPlatform()
 
             testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen { false }
+                showStandardStreams = true
             }
         }
     }

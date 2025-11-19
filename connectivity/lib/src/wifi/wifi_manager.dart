@@ -1,5 +1,5 @@
+import '../dhcp_info.dart';
 import '../jni.dart' as jni;
-import 'dhcp_info.dart';
 import 'wifi_configuration.dart';
 import 'wifi_info.dart';
 
@@ -14,12 +14,24 @@ enum WifiManager$WifiState {
 abstract interface class WifiManager$WifiStateChangedListener {
   factory WifiManager$WifiStateChangedListener({
     required void Function() onWifiStateChanged,
-  }) => WifiManager$WifiStateChangedListenerImpl(
-    onWifiStateChanged: onWifiStateChanged,
-  );
+  }) => jni.Build$VERSION.SDK_INT >= jni.Build$VERSION_CODES.BAKLAVA
+      ? WifiManager$WifiStateChangedListenerImpl36(
+          onWifiStateChanged: onWifiStateChanged,
+        )
+      : WifiManager$WifiStateChangedListenerImpl(
+          onWifiStateChanged: onWifiStateChanged,
+        );
 }
 
 abstract interface class WifiManager {
+  factory WifiManager() => WifiManagerImpl();
+
+  List<WifiConfiguration> get configuredNetworks;
+  WifiInfo get connectionInfo;
+  DhcpInfo get dhcpInfo;
+  WifiManager$WifiState get wifiState;
+  bool get isWifiEnabled;
+
   // static int calculateSignalLevel(int rssi, int numLevels) =>
   //     WifiManagerImpl.calculateSignalLevel(rssi, numLevels);
 
@@ -59,9 +71,6 @@ abstract interface class WifiManager {
   // List<WifiAvailableChannel> getAllowedChannels(int band, int mode);
   // List<WifiConfiguration> getCallerConfiguredNetworks();
   // void getChannelData(Consumer<List<Bundle>> resultsCallback);
-  List<WifiConfiguration> getConfiguredNetworks();
-  WifiInfo getConnectionInfo();
-  DhcpInfo getDhcpInfo();
   // int getMaxNumberOfChannelsPerNetworkSpecifierRequest();
   // int getMaxNumberOfNetworkSuggestionsPerApp();
   // int getMaxSignalLevel();
@@ -73,7 +82,6 @@ abstract interface class WifiManager {
   // List<ScanResult> getScanResults();
   // int getStaConcurrencyForMultiInternetMode();
   // List<WifiAvailableChannel> getUsableChannels(int band, int mode);
-  int getWifiState();
   // bool is24GHzBandSupported();
   // bool is5GHzBandSupported();
   // bool is60GHzBandSupported();
@@ -110,7 +118,6 @@ abstract interface class WifiManager {
   // bool isWapiSupported();
   // bool isWepSupporeted();
   // bool isWifiDisplayR2Supporeted();
-  bool isWifiEnabled();
   // bool isWifiPasspointEnabled();
   // bool isWifiStandardSupported(int standard);
   // bool isWpa3SaeH2eSupported();
@@ -182,13 +189,13 @@ abstract interface class WifiManager {
   // bool validateSoftApConfiguration(SoftApConfiguration config);
 }
 
-final class WifiManager$WifiStateChangedListenerImpl
+final class WifiManager$WifiStateChangedListenerImpl36
     implements WifiManager$WifiStateChangedListener {
   final jni.WifiManager$WifiStateChangedListener api;
 
-  WifiManager$WifiStateChangedListenerImpl.jni(this.api);
+  WifiManager$WifiStateChangedListenerImpl36.jni(this.api);
 
-  factory WifiManager$WifiStateChangedListenerImpl({
+  factory WifiManager$WifiStateChangedListenerImpl36({
     required void Function() onWifiStateChanged,
   }) {
     final api = jni.WifiManager$WifiStateChangedListener.implement(
@@ -196,6 +203,154 @@ final class WifiManager$WifiStateChangedListenerImpl
         onWifiStateChanged: onWifiStateChanged,
       ),
     );
+    return WifiManager$WifiStateChangedListenerImpl36.jni(api);
+  }
+}
+
+final class WifiManager$WifiStateChangedListenerImpl
+    implements WifiManager$WifiStateChangedListener {
+  final jni.BroadcastReceiver api;
+
+  WifiManager$WifiStateChangedListenerImpl.jni(this.api);
+
+  factory WifiManager$WifiStateChangedListenerImpl({
+    required void Function() onWifiStateChanged,
+  }) {
+    final api = jni.JBroadcastReceiverImpl(
+      jni.JBroadcastReceiver.implement(
+        jni.$JBroadcastReceiver(
+          onReceive: (context, intent) {
+            final action = intent.getAction();
+            if (action != jni.WifiManager.WIFI_STATE_CHANGED_ACTION) return;
+            onWifiStateChanged();
+          },
+        ),
+      ),
+    );
     return WifiManager$WifiStateChangedListenerImpl.jni(api);
+  }
+}
+
+final class WifiManagerImpl implements WifiManager {
+  final jni.WifiManager api;
+
+  WifiManagerImpl.jni(this.api);
+
+  factory WifiManagerImpl() {
+    final apiOrNull = jni.ContextCompat.getSystemService(
+      jni.context,
+      jni.WifiManager.type.jClass,
+      T: jni.WifiManager.type,
+    );
+    final api = ArgumentError.checkNotNull(apiOrNull);
+    return WifiManagerImpl.jni(api);
+  }
+
+  @override
+  List<WifiConfiguration> get configuredNetworks =>
+      api.getConfiguredNetworks()!.nonNulls.map((e) => e.impl).toList();
+
+  @override
+  WifiInfo get connectionInfo => api.getConnectionInfo()!.impl;
+
+  @override
+  DhcpInfo get dhcpInfo => api.getDhcpInfo()!.impl;
+
+  @override
+  bool get isWifiEnabled => api.isWifiEnabled();
+
+  @override
+  WifiManager$WifiState get wifiState =>
+      api.getWifiState().wifiManager$WifiStateImpl;
+
+  @override
+  int addNetwork(WifiConfiguration config) => api.addNetwork(config.api);
+
+  @override
+  void addWifiStateChangedListener(
+    WifiManager$WifiStateChangedListener listener,
+  ) => jni.Build$VERSION.SDK_INT >= jni.Build$VERSION_CODES.BAKLAVA
+      ? api.addWifiStateChangedListener(
+          jni.context.mainExecutor,
+          listener.api36,
+        )
+      : jni.ContextCompat.registerReceiver(
+          jni.context,
+          listener.api,
+          jni.IntentFilter.new$2(jni.WifiManager.WIFI_STATE_CHANGED_ACTION),
+          jni.ContextCompat.RECEIVER_NOT_EXPORTED,
+        );
+
+  @override
+  bool disableNetwork(int netId) => api.disableNetwork(netId);
+
+  @override
+  bool disconnect() => api.disconnect();
+
+  @override
+  bool enableNetwork(int nedId, bool attemptConnect) =>
+      api.enableNetwork(nedId, attemptConnect);
+
+  @override
+  bool reassociate() => api.reassociate();
+
+  @override
+  bool reconnect() => api.reconnect();
+
+  @override
+  bool removeNetwork(int netId) => api.removeNetwork(netId);
+
+  @override
+  bool removeNonCallerConfiguredNetworks() =>
+      api.removeNonCallerConfiguredNetworks();
+
+  @override
+  void removeWifiStateChangedListener(
+    WifiManager$WifiStateChangedListener listener,
+  ) => jni.Build$VERSION.SDK_INT >= jni.Build$VERSION_CODES.BAKLAVA
+      ? api.removeWifiStateChangedListener(listener.api36)
+      : jni.context.unregisterReceiver(listener.api);
+
+  @override
+  bool saveConfiguration() => api.saveConfiguration();
+
+  @override
+  bool setWifiEnabled(bool enabled) => api.setWifiEnabled(enabled);
+
+  @override
+  int updateNetwork(WifiConfiguration config) => api.updateNetwork(config.api);
+}
+
+extension WifiManager$intX on int {
+  WifiManager$WifiState get wifiManager$WifiStateImpl {
+    switch (this) {
+      case jni.WifiManager.WIFI_STATE_DISABLING:
+        return WifiManager$WifiState.disabling;
+      case jni.WifiManager.WIFI_STATE_DISABLED:
+        return WifiManager$WifiState.disabled;
+      case jni.WifiManager.WIFI_STATE_ENABLING:
+        return WifiManager$WifiState.enabling;
+      case jni.WifiManager.WIFI_STATE_ENABLED:
+        return WifiManager$WifiState.enabled;
+      case jni.WifiManager.WIFI_STATE_UNKNOWN:
+        return WifiManager$WifiState.unknown;
+      default:
+        throw UnimplementedError('Unimplemented value: $this');
+    }
+  }
+}
+
+extension WifiManager$WifiStateChangedListenerX
+    on WifiManager$WifiStateChangedListener {
+  jni.WifiManager$WifiStateChangedListener get api36 {
+    final impl = this;
+    if (impl is! WifiManager$WifiStateChangedListenerImpl36) throw TypeError();
+    return impl.api;
+  }
+
+  jni.BroadcastReceiver get api {
+    final impl = this;
+    if (impl is! WifiManager$WifiStateChangedListenerImpl) throw TypeError();
+    return impl.api;
   }
 }

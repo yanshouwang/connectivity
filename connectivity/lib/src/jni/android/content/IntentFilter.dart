@@ -36,6 +36,8 @@ import 'dart:core' show Object, String, bool, double, int;
 import 'package:jni/_internal.dart' as jni$_;
 import 'package:jni/jni.dart' as jni$_;
 
+import 'Intent.dart' as intent$_;
+
 /// from: `android.content.IntentFilter$AuthorityEntry`
 class IntentFilter$AuthorityEntry extends jni$_.JObject {
   @jni$_.internal
@@ -2039,7 +2041,7 @@ class IntentFilter extends jni$_.JObject {
   /// from: `public final int match(android.content.ContentResolver contentResolver, android.content.Intent intent, boolean z, java.lang.String string)`
   int match(
     jni$_.JObject? contentResolver,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     bool z,
     jni$_.JString? string,
   ) {

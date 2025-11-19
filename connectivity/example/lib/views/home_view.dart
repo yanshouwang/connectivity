@@ -1,4 +1,5 @@
 import 'package:clover/clover.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:connectivity_example/models.dart';
 import 'package:connectivity_example/view_models.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class HomeView extends StatelessWidget {
     final ssid = viewModel.ssid;
     final wifiModels = viewModel.wifiModels;
     final ethernetModels = viewModel.ethernetModels;
+    final wifiState = viewModel.wifiState;
     return Scaffold(
       appBar: AppBar(title: Text('Connectivity Manager')),
       body: Container(
@@ -22,7 +24,7 @@ class HomeView extends StatelessWidget {
               child: ListView.separated(
                 itemBuilder: (context, i) {
                   final model = wifiModels.values.elementAt(i);
-                  return _buildNetworkModel(context, model, ssid);
+                  return _buildNetworkModel(context, model, wifiState, ssid);
                 },
                 separatorBuilder: (context, i) => Divider(),
                 itemCount: wifiModels.length,
@@ -47,6 +49,7 @@ class HomeView extends StatelessWidget {
   Widget _buildNetworkModel(
     BuildContext context,
     NetworkModel model, [
+    WifiManager$WifiState? wifiState,
     String? ssid,
   ]) {
     final theme = Theme.of(context);
@@ -54,10 +57,11 @@ class HomeView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (wifiState != null) Text('WifiState: ${wifiState.name}'),
         Text(model.iface, style: theme.textTheme.titleMedium),
         if (ssid != null) Text('SSID: $ssid'),
         Text('IP: ${model.ipAddress}'),
-        Text('Subnet Mask: ${model.subnetMask}'),
+        Text('Subnet Mask: ${model.netmask}'),
         Text('Gateway: ${model.gateway}'),
         Text('DnsServers: ${model.dnsServers.join(', ')}'),
       ],

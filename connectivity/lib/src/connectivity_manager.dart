@@ -226,7 +226,7 @@ final class ConnectivityManagerImpl implements ConnectivityManager {
       jni.ConnectivityManager.type.jClass,
       T: jni.ConnectivityManager.type,
     );
-    final api = ArgumentError.checkNotNull(apiOrNull, 'api');
+    final api = ArgumentError.checkNotNull(apiOrNull);
     return ConnectivityManagerImpl.jni(api);
   }
 

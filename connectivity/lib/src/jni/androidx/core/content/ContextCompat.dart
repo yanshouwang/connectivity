@@ -36,7 +36,11 @@ import 'dart:core' show Object, String, bool, double, int;
 import 'package:jni/_internal.dart' as jni$_;
 import 'package:jni/jni.dart' as jni$_;
 
+import '../../../android/content/BroadcastReceiver.dart' as broadcastreceiver$_;
+
 import '../../../android/content/Context.dart' as context$_;
+
+import '../../../android/content/Intent.dart' as intent$_;
 
 import '../../../android/content/IntentFilter.dart' as intentfilter$_;
 
@@ -285,7 +289,7 @@ class ContextCompat extends jni$_.JObject {
   /// from: `static public boolean startActivities(android.content.Context context, android.content.Intent[] intents)`
   static bool startActivities(
     context$_.Context context,
-    jni$_.JArray<jni$_.JObject?> intents,
+    jni$_.JArray<intent$_.Intent?> intents,
   ) {
     final _$context = context.reference;
     final _$intents = intents.reference;
@@ -331,7 +335,7 @@ class ContextCompat extends jni$_.JObject {
   /// from: `static public boolean startActivities(android.content.Context context, android.content.Intent[] intents, android.os.Bundle bundle)`
   static bool startActivities$1(
     context$_.Context context,
-    jni$_.JArray<jni$_.JObject?> intents,
+    jni$_.JArray<intent$_.Intent?> intents,
     jni$_.JObject? bundle,
   ) {
     final _$context = context.reference;
@@ -380,7 +384,7 @@ class ContextCompat extends jni$_.JObject {
   /// from: `static public void startActivity(android.content.Context context, android.content.Intent intent, android.os.Bundle bundle)`
   static void startActivity(
     context$_.Context context,
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JObject? bundle,
   ) {
     final _$context = context.reference;
@@ -895,7 +899,7 @@ class ContextCompat extends jni$_.JObject {
   /// from: `static public void startForegroundService(android.content.Context context, android.content.Intent intent)`
   static void startForegroundService(
     context$_.Context context,
-    jni$_.JObject intent,
+    intent$_.Intent intent,
   ) {
     final _$context = context.reference;
     final _$intent = intent.reference;
@@ -1019,9 +1023,9 @@ class ContextCompat extends jni$_.JObject {
 
   /// from: `static public android.content.Intent registerReceiver(android.content.Context context, android.content.BroadcastReceiver broadcastReceiver, android.content.IntentFilter intentFilter, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni$_.JObject? registerReceiver(
+  static intent$_.Intent? registerReceiver(
     context$_.Context context,
-    jni$_.JObject? broadcastReceiver,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     intentfilter$_.IntentFilter intentFilter,
     int i,
   ) {
@@ -1036,7 +1040,7 @@ class ContextCompat extends jni$_.JObject {
       _$broadcastReceiver.pointer,
       _$intentFilter.pointer,
       i,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_registerReceiver$1 = _class.staticMethodId(
@@ -1078,9 +1082,9 @@ class ContextCompat extends jni$_.JObject {
 
   /// from: `static public android.content.Intent registerReceiver(android.content.Context context, android.content.BroadcastReceiver broadcastReceiver, android.content.IntentFilter intentFilter, java.lang.String string, android.os.Handler handler, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni$_.JObject? registerReceiver$1(
+  static intent$_.Intent? registerReceiver$1(
     context$_.Context context,
-    jni$_.JObject? broadcastReceiver,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     intentfilter$_.IntentFilter intentFilter,
     jni$_.JString? string,
     handler$_.Handler? handler,
@@ -1101,7 +1105,7 @@ class ContextCompat extends jni$_.JObject {
       _$string.pointer,
       _$handler.pointer,
       i,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_getSystemServiceName = _class.staticMethodId(

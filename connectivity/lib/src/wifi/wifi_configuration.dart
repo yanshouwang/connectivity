@@ -43,7 +43,7 @@ abstract interface class WifiConfiguration {
   // int get wepTxKeyIndex;
 }
 
-class WifiConfigurationImpl implements WifiConfiguration {
+final class WifiConfigurationImpl implements WifiConfiguration {
   final jni.WifiConfiguration api;
 
   WifiConfigurationImpl.jni(this.api);
