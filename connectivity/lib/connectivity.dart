@@ -1,7 +1,9 @@
 export 'src/ethernet.dart';
+export 'src/util.dart';
 export 'src/wifi.dart';
 export 'src/connectivity_manager.dart';
 export 'src/datagram_socket.dart';
+export 'src/dhcp_info.dart';
 export 'src/file_descriptor.dart';
 export 'src/inet_address.dart';
 export 'src/inet_addresses.dart';

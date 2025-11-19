@@ -72,7 +72,7 @@ final class NetworkCapabilitiesImpl implements NetworkCapabilities {
   @override
   List<NetworkCapabilities$NetCapability> get capabilities => api
       .getCapabilities()
-      .map((e) => e.networkCapabilitiesNetCapabilityImpl)
+      .map((e) => e.networkCapabilities$NetCapabilityImpl)
       .toList();
 
   @override
@@ -113,7 +113,7 @@ final class NetworkCapabilitiesImpl implements NetworkCapabilities {
 }
 
 extension NetworkCapabilities$intX on int {
-  NetworkCapabilities$NetCapability get networkCapabilitiesNetCapabilityImpl {
+  NetworkCapabilities$NetCapability get networkCapabilities$NetCapabilityImpl {
     switch (this) {
       case jni.NetworkCapabilities.NET_CAPABILITY_MMS:
         return NetworkCapabilities$NetCapability.mms;
@@ -182,7 +182,7 @@ extension NetworkCapabilities$intX on int {
     }
   }
 
-  NetworkCapabilities$Transport get networkCapabilitiesTransportImpl {
+  NetworkCapabilities$Transport get networkCapabilities$TransportImpl {
     switch (this) {
       case jni.NetworkCapabilities.TRANSPORT_CELLULAR:
         return NetworkCapabilities$Transport.cellular;

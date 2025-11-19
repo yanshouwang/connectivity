@@ -38,6 +38,8 @@ import 'package:jni/jni.dart' as jni$_;
 
 import '../content/Context.dart' as context$_;
 
+import '../content/Intent.dart' as intent$_;
+
 import '../os/Handler.dart' as handler$_;
 
 /// from: `android.app.PendingIntent$CanceledException`
@@ -289,7 +291,7 @@ class PendingIntent$OnFinished extends jni$_.JObject {
   /// from: `public abstract void onSendFinished(android.app.PendingIntent pendingIntent, android.content.Intent intent, int i, java.lang.String string, android.os.Bundle bundle)`
   void onSendFinished(
     PendingIntent? pendingIntent,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     jni$_.JString? string,
     jni$_.JObject? bundle,
@@ -340,7 +342,7 @@ class PendingIntent$OnFinished extends jni$_.JObject {
           r'onSendFinished(Landroid/app/PendingIntent;Landroid/content/Intent;ILjava/lang/String;Landroid/os/Bundle;)V') {
         _$impls[$p]!.onSendFinished(
           $a![0]?.as(const $PendingIntent$Type$(), releaseOriginal: true),
-          $a![1]?.as(const jni$_.$JObject$Type$(), releaseOriginal: true),
+          $a![1]?.as(const intent$_.$Intent$Type$(), releaseOriginal: true),
           $a![2]!
               .as(const jni$_.$JInteger$Type$(), releaseOriginal: true)
               .intValue(releaseOriginal: true),
@@ -394,7 +396,7 @@ abstract base mixin class $PendingIntent$OnFinished {
   factory $PendingIntent$OnFinished({
     required void Function(
       PendingIntent? pendingIntent,
-      jni$_.JObject? intent,
+      intent$_.Intent? intent,
       int i,
       jni$_.JString? string,
       jni$_.JObject? bundle,
@@ -405,7 +407,7 @@ abstract base mixin class $PendingIntent$OnFinished {
 
   void onSendFinished(
     PendingIntent? pendingIntent,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     jni$_.JString? string,
     jni$_.JObject? bundle,
@@ -417,7 +419,7 @@ final class _$PendingIntent$OnFinished with $PendingIntent$OnFinished {
   _$PendingIntent$OnFinished({
     required void Function(
       PendingIntent? pendingIntent,
-      jni$_.JObject? intent,
+      intent$_.Intent? intent,
       int i,
       jni$_.JString? string,
       jni$_.JObject? bundle,
@@ -428,7 +430,7 @@ final class _$PendingIntent$OnFinished with $PendingIntent$OnFinished {
 
   final void Function(
     PendingIntent? pendingIntent,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     jni$_.JString? string,
     jni$_.JObject? bundle,
@@ -438,7 +440,7 @@ final class _$PendingIntent$OnFinished with $PendingIntent$OnFinished {
 
   void onSendFinished(
     PendingIntent? pendingIntent,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     jni$_.JString? string,
     jni$_.JObject? bundle,
@@ -692,7 +694,7 @@ class PendingIntent extends jni$_.JObject {
   static PendingIntent? getActivities(
     context$_.Context? context,
     int i,
-    jni$_.JArray<jni$_.JObject?> intents,
+    jni$_.JArray<intent$_.Intent?> intents,
     int i1,
   ) {
     final _$context = context?.reference ?? jni$_.jNullReference;
@@ -747,7 +749,7 @@ class PendingIntent extends jni$_.JObject {
   static PendingIntent? getActivities$1(
     context$_.Context? context,
     int i,
-    jni$_.JArray<jni$_.JObject?> intents,
+    jni$_.JArray<intent$_.Intent?> intents,
     int i1,
     jni$_.JObject? bundle,
   ) {
@@ -803,7 +805,7 @@ class PendingIntent extends jni$_.JObject {
   static PendingIntent? getActivity(
     context$_.Context? context,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i1,
   ) {
     final _$context = context?.reference ?? jni$_.jNullReference;
@@ -858,7 +860,7 @@ class PendingIntent extends jni$_.JObject {
   static PendingIntent? getActivity$1(
     context$_.Context? context,
     int i,
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i1,
     jni$_.JObject? bundle,
   ) {
@@ -914,7 +916,7 @@ class PendingIntent extends jni$_.JObject {
   static PendingIntent? getBroadcast(
     context$_.Context? context,
     int i,
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i1,
   ) {
     final _$context = context?.reference ?? jni$_.jNullReference;
@@ -1056,7 +1058,7 @@ class PendingIntent extends jni$_.JObject {
   static PendingIntent? getForegroundService(
     context$_.Context? context,
     int i,
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i1,
   ) {
     final _$context = context?.reference ?? jni$_.jNullReference;
@@ -1139,7 +1141,7 @@ class PendingIntent extends jni$_.JObject {
   static PendingIntent? getService(
     context$_.Context? context,
     int i,
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i1,
   ) {
     final _$context = context?.reference ?? jni$_.jNullReference;
@@ -1440,7 +1442,7 @@ class PendingIntent extends jni$_.JObject {
           >();
 
   /// from: `public void send(android.content.Context context, int i, android.content.Intent intent)`
-  void send$1(context$_.Context? context, int i, jni$_.JObject? intent) {
+  void send$1(context$_.Context? context, int i, intent$_.Intent? intent) {
     final _$context = context?.reference ?? jni$_.jNullReference;
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _send$1(
@@ -1491,7 +1493,7 @@ class PendingIntent extends jni$_.JObject {
   void send$2(
     context$_.Context? context,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     PendingIntent$OnFinished? onFinished,
     handler$_.Handler? handler,
   ) {
@@ -1551,7 +1553,7 @@ class PendingIntent extends jni$_.JObject {
   void send$3(
     context$_.Context? context,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     PendingIntent$OnFinished? onFinished,
     handler$_.Handler? handler,
     jni$_.JString? string,
@@ -1616,7 +1618,7 @@ class PendingIntent extends jni$_.JObject {
   void send$4(
     context$_.Context? context,
     int i,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     PendingIntent$OnFinished? onFinished,
     handler$_.Handler? handler,
     jni$_.JString? string,

@@ -30,7 +30,7 @@ final class RouteInfoImpl implements RouteInfo {
   String? get interface => api.getInterface()?.impl;
 
   @override
-  RouteInfo$RTN get type => api.getType().routeInfoRTNImpl;
+  RouteInfo$RTN get type => api.getType().routeInfo$RTNImpl;
 
   @override
   bool get isDefaultRoute => api.isDefaultRoute();
@@ -43,7 +43,7 @@ final class RouteInfoImpl implements RouteInfo {
 }
 
 extension RouteInfo$intX on int {
-  RouteInfo$RTN get routeInfoRTNImpl {
+  RouteInfo$RTN get routeInfo$RTNImpl {
     switch (this) {
       case jni.RouteInfo.RTN_UNICAST:
         return RouteInfo$RTN.rtnUnicast;

@@ -226,7 +226,7 @@ final class ConnectivityManagerImpl implements ConnectivityManager {
       jni.ConnectivityManager.type.jClass,
       T: jni.ConnectivityManager.type,
     );
-    final api = ArgumentError.checkNotNull(apiOrNull, 'api');
+    final api = ArgumentError.checkNotNull(apiOrNull);
     return ConnectivityManagerImpl.jni(api);
   }
 
@@ -267,7 +267,7 @@ final class ConnectivityManagerImpl implements ConnectivityManager {
   ConnectivityManager$RestrictBackgroundStatus get restrictBackgroundStatus =>
       api
           .getRestrictBackgroundStatus()
-          .connectivityManagerRestrictBackgroundStatusImpl;
+          .connectivityManager$RestrictBackgroundStatusImpl;
 
   @override
   bool get isActiveNetworkMetered => api.isActiveNetworkMetered();
@@ -393,7 +393,7 @@ final class ConnectivityManagerImpl implements ConnectivityManager {
 
 extension ConnectivityManager$intX on int {
   ConnectivityManager$RestrictBackgroundStatus
-  get connectivityManagerRestrictBackgroundStatusImpl {
+  get connectivityManager$RestrictBackgroundStatusImpl {
     switch (this) {
       case jni.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED:
         return ConnectivityManager$RestrictBackgroundStatus.disabled;

@@ -1,30 +1,38 @@
 import 'package:clover/clover.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:connectivity_example/models.dart';
-import 'package:connectivity_example/util.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeViewModel extends ViewModel {
   final ConnectivityManager _connectivityManager;
+  final WifiManager _wifiManager;
+  final EthernetManager _ethernetManager;
   String? _ssid;
   final Map<String, NetworkModel> _wifiModels;
   final Map<String, NetworkModel> _ethernetModels;
+  WifiManager$WifiState _wifiState;
 
   late final ConnectivityManager$NetworkCallback _wifiCallback;
   late final ConnectivityManager$NetworkCallback _ethernetCallback;
+  late final WifiManager$WifiStateChangedListener _wifiStateChangedListener;
+  late final EthernetManager$Listener _ethernetListener;
 
   Logger get logger => Logger('HomeViewModel');
 
   String? get ssid => _ssid;
   Map<String, NetworkModel> get wifiModels => _wifiModels;
   Map<String, NetworkModel> get ethernetModels => _ethernetModels;
+  WifiManager$WifiState get wifiState => _wifiState;
 
   HomeViewModel()
     : _connectivityManager = ConnectivityManager(),
+      _wifiManager = WifiManager(),
+      _ethernetManager = EthernetManager(),
       _ssid = null,
       _wifiModels = {},
-      _ethernetModels = {} {
+      _ethernetModels = {},
+      _wifiState = WifiManager$WifiState.unknown {
     _initialize();
   }
 
@@ -32,6 +40,8 @@ class HomeViewModel extends ViewModel {
   void dispose() {
     _connectivityManager.unregisterNetworkCallback(_wifiCallback);
     _connectivityManager.unregisterNetworkCallback(_ethernetCallback);
+    _wifiManager.removeWifiStateChangedListener(_wifiStateChangedListener);
+    _ethernetManager.removeListener(_ethernetListener);
     super.dispose();
   }
 
@@ -41,6 +51,10 @@ class HomeViewModel extends ViewModel {
       final status = await Permission.locationWhenInUse.request();
       logger.info('location when use status: $status');
     }
+    _wifiState = _wifiManager.wifiState;
+    final wifiInfo = _wifiManager.connectionInfo;
+    logger.info('wifi info: ${wifiInfo.ssid}');
+    notifyListeners();
     final wr = NetworkRequest(
       transportTypes: [NetworkCapabilities$Transport.wifi],
     );
@@ -110,6 +124,20 @@ class HomeViewModel extends ViewModel {
     );
     _connectivityManager.registerNetworkCallback(wr, _wifiCallback);
     _connectivityManager.registerNetworkCallback(er, _ethernetCallback);
+    _wifiStateChangedListener = WifiManager$WifiStateChangedListener(
+      onWifiStateChanged: () {
+        logger.info('wifi state changed');
+        _wifiState = _wifiManager.wifiState;
+        notifyListeners();
+      },
+    );
+    _wifiManager.addWifiStateChangedListener(_wifiStateChangedListener);
+    _ethernetListener = EthernetManager$Listener(
+      onAvailabilityChanged: (iface, isAvailable) {
+        logger.info('ethernet $iface availability changed: $isAvailable');
+      },
+    );
+    _ethernetManager.addListener(_ethernetListener);
   }
 }
 
@@ -124,7 +152,7 @@ extension on LinkProperties {
     return NetworkModel(
       iface: iface,
       ipAddress: inetAddress?.$1,
-      subnetMask: inetAddress?.$2,
+      netmask: inetAddress?.$2,
       gateway: gateway,
       dnsServers: dnsServers,
     );
@@ -138,8 +166,9 @@ extension on LinkProperties {
           final ipAddress = inetAddress.hostAddress;
           if (ipAddress == null) return null;
           final prefixLength = e.prefixLength;
-          final subnetMask = NetworkUtil.getPrefixMask(prefixLength);
-          return (ipAddress, subnetMask);
+          final netmaskInt = NetworkUtil.prefixLengthToNetmaskInt(prefixLength);
+          final netmask = NetworkUtil.intToInetAddress(netmaskInt).hostAddress;
+          return (ipAddress, netmask);
         })
         .whereType<(String, String)>()
         .toList();

@@ -44,6 +44,12 @@ import '../os/Handler.dart' as handler$_;
 
 import '../os/Looper.dart' as looper$_;
 
+import 'BroadcastReceiver.dart' as broadcastreceiver$_;
+
+import 'Intent.dart' as intent$_;
+
+import 'IntentFilter.dart' as intentfilter$_;
+
 /// from: `android.content.Context$BindServiceFlags`
 class Context$BindServiceFlags extends jni$_.JObject {
   @jni$_.internal
@@ -1397,7 +1403,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public boolean bindIsolatedService(android.content.Intent intent, android.content.Context$BindServiceFlags bindServiceFlags, java.lang.String string, java.util.concurrent.Executor executor, android.content.ServiceConnection serviceConnection)`
   bool bindIsolatedService(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     Context$BindServiceFlags bindServiceFlags,
     jni$_.JString string,
     executor$_.Executor executor,
@@ -1456,7 +1462,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public boolean bindIsolatedService(android.content.Intent intent, int i, java.lang.String string, java.util.concurrent.Executor executor, android.content.ServiceConnection serviceConnection)`
   bool bindIsolatedService$1(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i,
     jni$_.JString string,
     executor$_.Executor executor,
@@ -1512,7 +1518,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public boolean bindService(android.content.Intent intent, android.content.Context$BindServiceFlags bindServiceFlags, java.util.concurrent.Executor executor, android.content.ServiceConnection serviceConnection)`
   bool bindService(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     Context$BindServiceFlags bindServiceFlags,
     executor$_.Executor executor,
     jni$_.JObject serviceConnection,
@@ -1564,7 +1570,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public boolean bindService(android.content.Intent intent, android.content.ServiceConnection serviceConnection, android.content.Context$BindServiceFlags bindServiceFlags)`
   bool bindService$1(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JObject serviceConnection,
     Context$BindServiceFlags bindServiceFlags,
   ) {
@@ -1613,7 +1619,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract boolean bindService(android.content.Intent intent, android.content.ServiceConnection serviceConnection, int i)`
   bool bindService$2(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JObject serviceConnection,
     int i,
   ) {
@@ -1663,7 +1669,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public boolean bindService(android.content.Intent intent, int i, java.util.concurrent.Executor executor, android.content.ServiceConnection serviceConnection)`
   bool bindService$3(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     int i,
     executor$_.Executor executor,
     jni$_.JObject serviceConnection,
@@ -1716,7 +1722,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public boolean bindServiceAsUser(android.content.Intent intent, android.content.ServiceConnection serviceConnection, android.content.Context$BindServiceFlags bindServiceFlags, android.os.UserHandle userHandle)`
   bool bindServiceAsUser(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JObject serviceConnection,
     Context$BindServiceFlags bindServiceFlags,
     jni$_.JObject userHandle,
@@ -1770,7 +1776,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public boolean bindServiceAsUser(android.content.Intent intent, android.content.ServiceConnection serviceConnection, int i, android.os.UserHandle userHandle)`
   bool bindServiceAsUser$1(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JObject serviceConnection,
     int i,
     jni$_.JObject userHandle,
@@ -5341,9 +5347,9 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract android.content.Intent registerReceiver(android.content.BroadcastReceiver broadcastReceiver, android.content.IntentFilter intentFilter)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? registerReceiver(
-    jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+  intent$_.Intent? registerReceiver(
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
+    intentfilter$_.IntentFilter? intentFilter,
   ) {
     final _$broadcastReceiver =
         broadcastReceiver?.reference ?? jni$_.jNullReference;
@@ -5353,7 +5359,7 @@ class Context extends jni$_.JObject {
       _id_registerReceiver as jni$_.JMethodIDPtr,
       _$broadcastReceiver.pointer,
       _$intentFilter.pointer,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_registerReceiver$1 = _class.instanceMethodId(
@@ -5389,9 +5395,9 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract android.content.Intent registerReceiver(android.content.BroadcastReceiver broadcastReceiver, android.content.IntentFilter intentFilter, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? registerReceiver$1(
-    jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+  intent$_.Intent? registerReceiver$1(
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
+    intentfilter$_.IntentFilter? intentFilter,
     int i,
   ) {
     final _$broadcastReceiver =
@@ -5403,7 +5409,7 @@ class Context extends jni$_.JObject {
       _$broadcastReceiver.pointer,
       _$intentFilter.pointer,
       i,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_registerReceiver$2 = _class.instanceMethodId(
@@ -5441,9 +5447,9 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract android.content.Intent registerReceiver(android.content.BroadcastReceiver broadcastReceiver, android.content.IntentFilter intentFilter, java.lang.String string, android.os.Handler handler)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? registerReceiver$2(
-    jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+  intent$_.Intent? registerReceiver$2(
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
+    intentfilter$_.IntentFilter? intentFilter,
     jni$_.JString? string,
     handler$_.Handler? handler,
   ) {
@@ -5459,7 +5465,7 @@ class Context extends jni$_.JObject {
       _$intentFilter.pointer,
       _$string.pointer,
       _$handler.pointer,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_registerReceiver$3 = _class.instanceMethodId(
@@ -5499,9 +5505,9 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract android.content.Intent registerReceiver(android.content.BroadcastReceiver broadcastReceiver, android.content.IntentFilter intentFilter, java.lang.String string, android.os.Handler handler, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? registerReceiver$3(
-    jni$_.JObject? broadcastReceiver,
-    jni$_.JObject? intentFilter,
+  intent$_.Intent? registerReceiver$3(
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
+    intentfilter$_.IntentFilter? intentFilter,
     jni$_.JString? string,
     handler$_.Handler? handler,
     int i,
@@ -5519,7 +5525,7 @@ class Context extends jni$_.JObject {
       _$string.pointer,
       _$handler.pointer,
       i,
-    ).object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+    ).object<intent$_.Intent?>(const intent$_.$Intent$NullableType$());
   }
 
   static final _id_removeStickyBroadcast = _class.instanceMethodId(
@@ -5546,7 +5552,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void removeStickyBroadcast(android.content.Intent intent)`
-  void removeStickyBroadcast(jni$_.JObject? intent) {
+  void removeStickyBroadcast(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _removeStickyBroadcast(
       reference.pointer,
@@ -5583,7 +5589,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void removeStickyBroadcastAsUser(android.content.Intent intent, android.os.UserHandle userHandle)`
   void removeStickyBroadcastAsUser(
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     jni$_.JObject? userHandle,
   ) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
@@ -5767,7 +5773,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void sendBroadcast(android.content.Intent intent)`
-  void sendBroadcast(jni$_.JObject? intent) {
+  void sendBroadcast(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _sendBroadcast(
       reference.pointer,
@@ -5803,7 +5809,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void sendBroadcast(android.content.Intent intent, java.lang.String string)`
-  void sendBroadcast$1(jni$_.JObject? intent, jni$_.JString? string) {
+  void sendBroadcast$1(intent$_.Intent? intent, jni$_.JString? string) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     final _$string = string?.reference ?? jni$_.jNullReference;
     _sendBroadcast$1(
@@ -5847,7 +5853,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public void sendBroadcast(android.content.Intent intent, java.lang.String string, android.os.Bundle bundle)`
   void sendBroadcast$2(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JString? string,
     jni$_.JObject? bundle,
   ) {
@@ -5890,7 +5896,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void sendBroadcastAsUser(android.content.Intent intent, android.os.UserHandle userHandle)`
-  void sendBroadcastAsUser(jni$_.JObject? intent, jni$_.JObject? userHandle) {
+  void sendBroadcastAsUser(intent$_.Intent? intent, jni$_.JObject? userHandle) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     final _$userHandle = userHandle?.reference ?? jni$_.jNullReference;
     _sendBroadcastAsUser(
@@ -5934,7 +5940,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void sendBroadcastAsUser(android.content.Intent intent, android.os.UserHandle userHandle, java.lang.String string)`
   void sendBroadcastAsUser$1(
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     jni$_.JObject? userHandle,
     jni$_.JString? string,
   ) {
@@ -5979,7 +5985,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public void sendBroadcastWithMultiplePermissions(android.content.Intent intent, java.lang.String[] strings)`
   void sendBroadcastWithMultiplePermissions(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JArray<jni$_.JString?> strings,
   ) {
     final _$intent = intent.reference;
@@ -6019,7 +6025,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void sendOrderedBroadcast(android.content.Intent intent, java.lang.String string)`
-  void sendOrderedBroadcast(jni$_.JObject? intent, jni$_.JString? string) {
+  void sendOrderedBroadcast(intent$_.Intent? intent, jni$_.JString? string) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     final _$string = string?.reference ?? jni$_.jNullReference;
     _sendOrderedBroadcast(
@@ -6071,9 +6077,9 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void sendOrderedBroadcast(android.content.Intent intent, java.lang.String string, android.content.BroadcastReceiver broadcastReceiver, android.os.Handler handler, int i, java.lang.String string1, android.os.Bundle bundle)`
   void sendOrderedBroadcast$1(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JString? string,
-    jni$_.JObject? broadcastReceiver,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     handler$_.Handler? handler,
     int i,
     jni$_.JString? string1,
@@ -6132,7 +6138,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public void sendOrderedBroadcast(android.content.Intent intent, java.lang.String string, android.os.Bundle bundle)`
   void sendOrderedBroadcast$2(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JString? string,
     jni$_.JObject? bundle,
   ) {
@@ -6191,10 +6197,10 @@ class Context extends jni$_.JObject {
 
   /// from: `public void sendOrderedBroadcast(android.content.Intent intent, java.lang.String string, android.os.Bundle bundle, android.content.BroadcastReceiver broadcastReceiver, android.os.Handler handler, int i, java.lang.String string1, android.os.Bundle bundle1)`
   void sendOrderedBroadcast$3(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JString? string,
     jni$_.JObject? bundle,
-    jni$_.JObject? broadcastReceiver,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     handler$_.Handler? handler,
     int i,
     jni$_.JString? string1,
@@ -6265,10 +6271,10 @@ class Context extends jni$_.JObject {
 
   /// from: `public void sendOrderedBroadcast(android.content.Intent intent, java.lang.String string, java.lang.String string1, android.content.BroadcastReceiver broadcastReceiver, android.os.Handler handler, int i, java.lang.String string2, android.os.Bundle bundle)`
   void sendOrderedBroadcast$4(
-    jni$_.JObject intent,
+    intent$_.Intent intent,
     jni$_.JString? string,
     jni$_.JString? string1,
-    jni$_.JObject? broadcastReceiver,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     handler$_.Handler? handler,
     int i,
     jni$_.JString? string2,
@@ -6339,10 +6345,10 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void sendOrderedBroadcastAsUser(android.content.Intent intent, android.os.UserHandle userHandle, java.lang.String string, android.content.BroadcastReceiver broadcastReceiver, android.os.Handler handler, int i, java.lang.String string1, android.os.Bundle bundle)`
   void sendOrderedBroadcastAsUser(
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     jni$_.JObject? userHandle,
     jni$_.JString? string,
-    jni$_.JObject? broadcastReceiver,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     handler$_.Handler? handler,
     int i,
     jni$_.JString? string1,
@@ -6394,7 +6400,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void sendStickyBroadcast(android.content.Intent intent)`
-  void sendStickyBroadcast(jni$_.JObject? intent) {
+  void sendStickyBroadcast(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _sendStickyBroadcast(
       reference.pointer,
@@ -6430,7 +6436,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public void sendStickyBroadcast(android.content.Intent intent, android.os.Bundle bundle)`
-  void sendStickyBroadcast$1(jni$_.JObject intent, jni$_.JObject? bundle) {
+  void sendStickyBroadcast$1(intent$_.Intent intent, jni$_.JObject? bundle) {
     final _$intent = intent.reference;
     final _$bundle = bundle?.reference ?? jni$_.jNullReference;
     _sendStickyBroadcast$1(
@@ -6469,7 +6475,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void sendStickyBroadcastAsUser(android.content.Intent intent, android.os.UserHandle userHandle)`
   void sendStickyBroadcastAsUser(
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     jni$_.JObject? userHandle,
   ) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
@@ -6521,8 +6527,8 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void sendStickyOrderedBroadcast(android.content.Intent intent, android.content.BroadcastReceiver broadcastReceiver, android.os.Handler handler, int i, java.lang.String string, android.os.Bundle bundle)`
   void sendStickyOrderedBroadcast(
-    jni$_.JObject? intent,
-    jni$_.JObject? broadcastReceiver,
+    intent$_.Intent? intent,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     handler$_.Handler? handler,
     int i,
     jni$_.JString? string,
@@ -6587,9 +6593,9 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void sendStickyOrderedBroadcastAsUser(android.content.Intent intent, android.os.UserHandle userHandle, android.content.BroadcastReceiver broadcastReceiver, android.os.Handler handler, int i, java.lang.String string, android.os.Bundle bundle)`
   void sendStickyOrderedBroadcastAsUser(
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     jni$_.JObject? userHandle,
-    jni$_.JObject? broadcastReceiver,
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
     handler$_.Handler? handler,
     int i,
     jni$_.JString? string,
@@ -6730,7 +6736,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void startActivities(android.content.Intent[] intents)`
-  void startActivities(jni$_.JArray<jni$_.JObject?>? intents) {
+  void startActivities(jni$_.JArray<intent$_.Intent?>? intents) {
     final _$intents = intents?.reference ?? jni$_.jNullReference;
     _startActivities(
       reference.pointer,
@@ -6767,7 +6773,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract void startActivities(android.content.Intent[] intents, android.os.Bundle bundle)`
   void startActivities$1(
-    jni$_.JArray<jni$_.JObject?>? intents,
+    jni$_.JArray<intent$_.Intent?>? intents,
     jni$_.JObject? bundle,
   ) {
     final _$intents = intents?.reference ?? jni$_.jNullReference;
@@ -6804,7 +6810,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void startActivity(android.content.Intent intent)`
-  void startActivity(jni$_.JObject? intent) {
+  void startActivity(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     _startActivity(
       reference.pointer,
@@ -6840,7 +6846,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void startActivity(android.content.Intent intent, android.os.Bundle bundle)`
-  void startActivity$1(jni$_.JObject? intent, jni$_.JObject? bundle) {
+  void startActivity$1(intent$_.Intent? intent, jni$_.JObject? bundle) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     final _$bundle = bundle?.reference ?? jni$_.jNullReference;
     _startActivity$1(
@@ -6876,7 +6882,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract android.content.ComponentName startForegroundService(android.content.Intent intent)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? startForegroundService(jni$_.JObject? intent) {
+  jni$_.JObject? startForegroundService(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     return _startForegroundService(
       reference.pointer,
@@ -6972,7 +6978,7 @@ class Context extends jni$_.JObject {
   /// from: `public abstract void startIntentSender(android.content.IntentSender intentSender, android.content.Intent intent, int i, int i1, int i2)`
   void startIntentSender(
     jni$_.JObject? intentSender,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     int i1,
     int i2,
@@ -7030,7 +7036,7 @@ class Context extends jni$_.JObject {
   /// from: `public abstract void startIntentSender(android.content.IntentSender intentSender, android.content.Intent intent, int i, int i1, int i2, android.os.Bundle bundle)`
   void startIntentSender$1(
     jni$_.JObject? intentSender,
-    jni$_.JObject? intent,
+    intent$_.Intent? intent,
     int i,
     int i1,
     int i2,
@@ -7076,7 +7082,7 @@ class Context extends jni$_.JObject {
 
   /// from: `public abstract android.content.ComponentName startService(android.content.Intent intent)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? startService(jni$_.JObject? intent) {
+  jni$_.JObject? startService(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     return _startService(
       reference.pointer,
@@ -7109,7 +7115,7 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract boolean stopService(android.content.Intent intent)`
-  bool stopService(jni$_.JObject? intent) {
+  bool stopService(intent$_.Intent? intent) {
     final _$intent = intent?.reference ?? jni$_.jNullReference;
     return _stopService(
       reference.pointer,
@@ -7242,7 +7248,9 @@ class Context extends jni$_.JObject {
           >();
 
   /// from: `public abstract void unregisterReceiver(android.content.BroadcastReceiver broadcastReceiver)`
-  void unregisterReceiver(jni$_.JObject? broadcastReceiver) {
+  void unregisterReceiver(
+    broadcastreceiver$_.BroadcastReceiver? broadcastReceiver,
+  ) {
     final _$broadcastReceiver =
         broadcastReceiver?.reference ?? jni$_.jNullReference;
     _unregisterReceiver(

@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 
 @Keep
 class JConnectivityManager {
+    @Keep
     interface JNetworkCallback {
         fun onAvailable(network: Network)
         fun onBlockedStatusChanged(network: Network, blocked: Boolean)
