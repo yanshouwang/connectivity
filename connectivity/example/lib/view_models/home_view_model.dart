@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 class HomeViewModel extends ViewModel {
   final ConnectivityManager _connectivityManager;
   final WifiManager _wifiManager;
+  final EthernetManager _ethernetManager;
   String? _ssid;
   final Map<String, NetworkModel> _wifiModels;
   final Map<String, NetworkModel> _ethernetModels;
@@ -15,6 +16,7 @@ class HomeViewModel extends ViewModel {
   late final ConnectivityManager$NetworkCallback _wifiCallback;
   late final ConnectivityManager$NetworkCallback _ethernetCallback;
   late final WifiManager$WifiStateChangedListener _wifiStateChangedListener;
+  late final EthernetManager$Listener _ethernetListener;
 
   Logger get logger => Logger('HomeViewModel');
 
@@ -26,6 +28,7 @@ class HomeViewModel extends ViewModel {
   HomeViewModel()
     : _connectivityManager = ConnectivityManager(),
       _wifiManager = WifiManager(),
+      _ethernetManager = EthernetManager(),
       _ssid = null,
       _wifiModels = {},
       _ethernetModels = {},
@@ -38,6 +41,7 @@ class HomeViewModel extends ViewModel {
     _connectivityManager.unregisterNetworkCallback(_wifiCallback);
     _connectivityManager.unregisterNetworkCallback(_ethernetCallback);
     _wifiManager.removeWifiStateChangedListener(_wifiStateChangedListener);
+    _ethernetManager.removeListener(_ethernetListener);
     super.dispose();
   }
 
@@ -48,6 +52,8 @@ class HomeViewModel extends ViewModel {
       logger.info('location when use status: $status');
     }
     _wifiState = _wifiManager.wifiState;
+    final wifiInfo = _wifiManager.connectionInfo;
+    logger.info('wifi info: ${wifiInfo.ssid}');
     notifyListeners();
     final wr = NetworkRequest(
       transportTypes: [NetworkCapabilities$Transport.wifi],
@@ -126,6 +132,12 @@ class HomeViewModel extends ViewModel {
       },
     );
     _wifiManager.addWifiStateChangedListener(_wifiStateChangedListener);
+    _ethernetListener = EthernetManager$Listener(
+      onAvailabilityChanged: (iface, isAvailable) {
+        logger.info('ethernet $iface availability changed: $isAvailable');
+      },
+    );
+    _ethernetManager.addListener(_ethernetListener);
   }
 }
 

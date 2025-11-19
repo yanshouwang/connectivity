@@ -60,10 +60,10 @@ class HomeView extends StatelessWidget {
         if (wifiState != null) Text('WifiState: ${wifiState.name}'),
         Text(model.iface, style: theme.textTheme.titleMedium),
         if (ssid != null) Text('SSID: $ssid'),
-        Text('IP: ${model.ipAddress}'),
-        Text('Subnet Mask: ${model.netmask}'),
-        Text('Gateway: ${model.gateway}'),
-        Text('DnsServers: ${model.dnsServers.join(', ')}'),
+        Text('ipAddress: ${model.ipAddress}'),
+        Text('netmask: ${model.netmask}'),
+        Text('gateway: ${model.gateway}'),
+        Text('dnsServers: ${model.dnsServers.join(', ')}'),
       ],
     );
   }
