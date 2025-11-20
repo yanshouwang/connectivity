@@ -1,10 +1,8 @@
 package dev.zeekr.connectivity
 
 import android.annotation.SuppressLint
-import androidx.annotation.Keep
 
 @SuppressLint("PrivateApi")
-@Keep
 class JIpConfiguration(val obj: Any) {
     companion object {
         val clazz: Class<*> get() = Class.forName("android.net.IpConfiguration")

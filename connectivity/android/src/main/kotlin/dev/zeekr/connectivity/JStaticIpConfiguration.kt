@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.RouteInfo
-import androidx.annotation.Keep
 import java.net.InetAddress
 
 @SuppressLint("PrivateApi")
-@Keep
 class JStaticIpConfiguration(val obj: Any) {
     companion object {
         val clazz: Class<*> get() = Class.forName("android.net.StaticIpConfiguration")

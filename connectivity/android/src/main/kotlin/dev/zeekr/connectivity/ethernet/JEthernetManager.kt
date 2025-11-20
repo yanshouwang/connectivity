@@ -3,7 +3,6 @@ package dev.zeekr.connectivity.ethernet
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
-import androidx.annotation.Keep
 import dev.zeekr.connectivity.JIpConfiguration
 import net.bytebuddy.ByteBuddy
 import net.bytebuddy.android.AndroidClassLoadingStrategy
@@ -12,7 +11,6 @@ import net.bytebuddy.implementation.InvocationHandlerAdapter
 import net.bytebuddy.matcher.ElementMatchers
 import java.lang.reflect.InvocationHandler
 
-@Keep
 @SuppressLint("PrivateApi")
 class JEthernetManager(context: Context) {
     companion object {
@@ -25,12 +23,10 @@ class JEthernetManager(context: Context) {
         val clazz: Class<*> get() = Class.forName("android.net.EthernetManager")
     }
 
-    @Keep
     interface JListener {
         fun onAvailabilityChanged(iface: String, isAvailable: Boolean)
     }
 
-    @Keep
     class JListenerImpl(context: Context, listener: JListener) {
         companion object {
             val clazz: Class<*> get() = Class.forName("android.net.EthernetManager\$Listener")

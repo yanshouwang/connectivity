@@ -1,6 +1,5 @@
 package dev.zeekr.connectivity
 
-import androidx.annotation.Keep
 import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.UnknownHostException
@@ -9,7 +8,6 @@ import java.net.UnknownHostException
 /**
  * Collection of utilities to work with IPv4 addresses.
  */
-@Keep
 object JInet4AddressUtil {
     /**
      * Convert a IPv4 address from an integer to an InetAddress (0x04030201 -> 1.2.3.4)

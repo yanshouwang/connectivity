@@ -1,13 +1,11 @@
 package dev.zeekr.connectivity
 
-import androidx.annotation.Keep
 import java.net.Inet4Address
 
 // https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/NetworkUtils.java
 /**
  * Native methods for managing network interfaces.
  */
-@Keep
 object JNetworkUtil {
     /**
      * @see JInet4AddressUtil.intToInet4AddressHTL

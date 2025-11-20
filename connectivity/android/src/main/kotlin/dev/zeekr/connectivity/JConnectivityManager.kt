@@ -5,12 +5,9 @@ import android.net.LinkProperties
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 
-@Keep
 class JConnectivityManager {
-    @Keep
     interface JNetworkCallback {
         fun onAvailable(network: Network)
         fun onBlockedStatusChanged(network: Network, blocked: Boolean)
@@ -22,7 +19,6 @@ class JConnectivityManager {
         fun onUnavailable()
     }
 
-    @Keep
     class JNetworkCallbackImpl : ConnectivityManager.NetworkCallback {
         private val callback: JNetworkCallback
 

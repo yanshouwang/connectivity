@@ -1,2 +1,14 @@
--dontwarn edu.umd.cs.findbugs.annotations.SuppressFBWarnings
--dontwarn javax.annotation.Nonnull
+-dontwarn com.sun.jna.**
+-dontwarn edu.umd.cs.findbugs.annotations.**
+-dontwarn java.lang.instrument.**
+-dontwarn javax.annotation.**
+
+-keep class net.bytebuddy.** { *; }
+-keep class org.chickenhook.restrictionbypass.** { *; }
+-keep class androidx.core.content.** { *; }
+-keep class java.io.** { *; }
+-keep class java.net.** { *; }
+-keep class java.util.** { *; }
+-keep class javax.net.** { *; }
+-keep class dev.zeekr.connectivity.** { *; }
+-keep class dev.zeekr.connectivity.ethernet.** { *; }
